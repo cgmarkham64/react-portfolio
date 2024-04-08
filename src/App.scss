@@ -1,0 +1,37 @@
+$primary-color: #AFD2E9;
+$background-color: #00171F;
+$alt-color-1: #003459;
+$alt-color-2: #F19953;
+$alt-color-3: #846C5B;
+
+@import 'animate.css';
+
+@font-face {
+  font-family: 'Coolvetica Compressed';
+  src: url('./assets/fonts/coolvetica\ compressed\ hv.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Coolvetica Condensed';
+  src: url('./assets/fonts/coolvetica\ condensed\ rg.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Coolvetica Crammed';
+  src: url('./assets/fonts/coolvetica\ crammed\ rg.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Coolvetica RG';
+  src: url('./assets/fonts/coolvetica\ rg\ it.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('./assets/fonts/coolvetica\ rg.otf') format('otf');
+}
+
+input,
+textarea {
+  font-family: 'Coolvetica Condensed';
+}
