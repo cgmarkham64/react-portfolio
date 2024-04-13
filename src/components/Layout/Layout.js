@@ -8,6 +8,9 @@ export const Layout = () => {
   return (
     <div className="App">
       <Sidebar />
+      {/* <div class="image-frame">
+          <img src={LogoMtn} alt="logo" className="background-image" />
+        </div> */}
       <div className="page">
         <div class="image-frame">
           <img src={LogoMtn} alt="logo" className="background-image" />

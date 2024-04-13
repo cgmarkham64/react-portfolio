@@ -4,9 +4,13 @@ html {
 
 body {
   margin: 0;
-  font: 300 11px/1.4 'Courier New', 'monospace';
-  color: #846C5B;
-  background-color: #00171F;
-  overflow: hidden;
+  font: 300 13px/1.4 'Courier New', 'monospace';
+  color: #bb9173;
+  overflow: scroll;
   display: block;
+}
+
+.container {
+  padding-left: 70px;
+  overflow-y: scroll;
 }
