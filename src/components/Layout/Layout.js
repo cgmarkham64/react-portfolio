@@ -12,7 +12,7 @@ export const Layout = () => {
           <img src={LogoMtn} alt="logo" className="background-image" />
         </div> */}
       <div className="page">
-        <div class="image-frame">
+        <div className="image-frame">
           <img src={LogoMtn} alt="logo" className="background-image" />
         </div>
         <Outlet />

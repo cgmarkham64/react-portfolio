@@ -1,7 +1,5 @@
 import './Home.scss'
 
-// import axios from 'axios';
-
 export const Home = () => {
   let titleText = 'Hello,'
   let bodyText =
@@ -11,15 +9,18 @@ export const Home = () => {
     'intro for a home page, check out my About page for a digitized version of my resume, check out my Photography page if you came here to see some of my art, ' +
     'and hit me up via my contact page just to see if I got my email linkages correct! '
 
-    // TODO use to grab IG feed for dynamic display
-  // axios({
-  //   method: 'get',
-  //   url: 'https://bit.ly/2mTM3nY',
-  //   responseType: 'stream'
-  // })
-  //   .then(function (response) {
-  //     response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-  //   });
+  const getUserMedia = async () => {
+    const accessToken = process.env.REACT_APP_INSTAGRAM_KEY;
+    const fields = `id,caption,media_url,timestamp,media_type,permalink`;
+    const userId = '7436680339745871';
+    const url = `https://graph.instagram.com/v19.0/${userId}/media?fields=${fields}&access_token=${accessToken}`;
+    const data = await fetch(url);
+    const feed = await data.json();
+
+    console.log(feed)
+  }
+
+  getUserMedia()
 
   return (
     <div className="container">
