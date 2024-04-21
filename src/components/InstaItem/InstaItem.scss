@@ -1,0 +1,23 @@
+.instaItem-container {
+  display: block;
+  margin: 4px auto;
+  background-color: #ededed;
+  border-radius: 14px;
+  overflow: hidden;
+  white-space: wrap;
+
+  .image {
+    display: block;
+    width: 85%;
+    max-width: 600px;
+    margin: 8px auto;
+  }
+
+  .caption {
+    display: block;
+    width: 85%;
+    max-width: 600px;
+    margin: 2px auto 8px auto;
+    text-overflow: ellipsis;
+  }
+}
