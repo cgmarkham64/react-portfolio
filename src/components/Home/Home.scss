@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   align-content: space-evenly;
 
-  padding-top: 50px;
+  padding-top: 20px;
   position: relative;
 
   .content-zone {
@@ -12,19 +12,23 @@
     min-width: 525px;
     max-height: 90%;
     background: rgba(165, 234, 228, 0.1);
-    padding: 14px;
+    padding: 8px 14px;
     border-radius: 14px;
   }
 
   .left-zone {
     margin: 0 2.5% 0 5%;
+    max-height: 400px;
     order: 0;
   }
 
   .right-zone {
     margin: 0 0 0 2.5%;
     order: 1;
-  }
+    height: 100vh;
+    overflow-y: scroll;
+    position: relative;
+  }  
 }
 
 @media only screen and (max-width: 1300px) {
@@ -34,24 +38,25 @@
     flex-wrap: wrap;
     align-content: space-evenly;
 
-    padding-top: 50px;
+    padding-top: 20px;
     position: relative;
 
     .content-zone {
-        width: 90%;
-        min-width: 250px;
-        margin: 2.5% auto;
-        background: rgba(165, 234, 228, 0.1);
-        padding: 14px;
-        border-radius: 14px;
-      }
-    
-      .left-zone {
-        order: 0;
-      }
-    
-      .right-zone {
-        order: 1;
-      }
+      width: 90%;
+      min-width: 250px;
+      margin: 2.5% auto;
+      background: rgba(165, 234, 228, 0.1);
+      padding: 14px;
+      border-radius: 14px;
+    }
+
+    .left-zone {
+      order: 0;
+    }
+
+    .right-zone {
+      order: 1;
+      height: 100vh;
+    }
   }
 }
