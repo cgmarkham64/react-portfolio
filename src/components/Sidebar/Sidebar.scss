@@ -19,6 +19,31 @@
       height: auto;
     }
   }
+
+  ul {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+  
+    li {
+      a {
+        padding: 7px 0;
+        display: block;
+        font-size: 16px;
+        line-height: 16px;
+        color: #eeeeee;
+  
+        &:hover svg {
+          color: #f19953;
+        }
+      }
+    }
+  }
 }
 
 nav {
@@ -93,27 +118,4 @@ nav {
   }
 }
 
-ul {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  display: block;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
 
-  li {
-    a {
-      padding: 7px 0;
-      display: block;
-      font-size: 16px;
-      line-height: 16px;
-      color: #eeeeee;
-
-      &:hover svg {
-        color: #f19953;
-      }
-    }
-  }
-}
