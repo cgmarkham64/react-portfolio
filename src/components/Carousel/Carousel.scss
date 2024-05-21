@@ -1,10 +1,16 @@
 .carousel {
     position: relative;
     height: 625px;
+
+    .carousel-images-wrapper {
+        position: absolute;
+        left: 50%;
+
+    }
     
     .carousel-images {
         position: absolute;
-        left: 29%;
+        left: 50%;
         top: 10px;
         transform: translateX(-50%);
         border-radius: 20px;

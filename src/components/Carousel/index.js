@@ -37,7 +37,7 @@ const Carousel = ({ images }) => {
             opacity: 0,
         },
         visible: {
-            x: '0',
+            x: '-50%',
             opacity: 1,
             transition: {
                 duration: 1,
@@ -47,14 +47,14 @@ const Carousel = ({ images }) => {
             opacity: 0,
             scale: 0.8,
             transition: {
-                duration: 0.5,
+                duration: 1.0,
             },
         },
     }
 
     return (
         <div className="carousel">
-            <AnimatePresence>
+            <AnimatePresence className="carousel-images-wrapper">
                 <motion.img
                     className="carousel-images"
                     key={currentIndex}
