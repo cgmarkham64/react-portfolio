@@ -19,7 +19,15 @@ class Home extends Component {
             instagramElements: [],
         }
 
-        this.getUserMedia = this.getUserMedia.bind(this)
+        this.getUserMedia = this.getUserMedia.bind(this);
+        this.addAnimation = this.addAnimation.bind(this);
+
+        this.scrollers = document.querySelectorAll(".scroller");
+
+        // If a user hasn't opted in for recuded motion, then we add the animation
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            this.addAnimation();
+        }
     }
 
     componentDidMount() {
@@ -53,6 +61,26 @@ class Home extends Component {
         });
     }
 
+    addAnimation = () => {
+        this.scrollers.forEach((scroller) => {
+            // add data-animated="true" to every `.scroller` on the page
+            scroller.setAttribute("data-animated", true);
+
+            // Make an array from the elements within `.scroller-inner`
+            const scrollerInner = scroller.querySelector(".scroller__inner");
+            const scrollerContent = Array.from(scrollerInner.children);
+
+            // For each item in the array, clone it
+            // add aria-hidden to it
+            // add it into the `.scroller-inner`
+            scrollerContent.forEach((item) => {
+            const duplicatedItem = item.cloneNode(true);
+            duplicatedItem.setAttribute("aria-hidden", true);
+            scrollerInner.appendChild(duplicatedItem);
+            });
+        });
+    }
+
     render() {
         return (
             <div className="container">
@@ -65,16 +93,16 @@ class Home extends Component {
                             <h3>—Cody</h3>
                         </div>
                         <div className="content-zone zone-two">
-                            {/* TODO side scroll https://www.youtube.com/watch?v=iLmBy-HKIAw&t=1s */}
-                            <ul>
-                                <li>HTML</li>
-                                <li>JavaScript</li>
-                                <li>ReactJS</li>
-                                <li>Angular</li>
-                                <li>Python</li>
-                                <li>Java</li>
-                                <li>CSS</li>
-                            </ul>
+                            <div class="scroller">
+                                <ul class="tag-list scroller__inner" data-speed="slow">
+                                    <li>HTML</li>
+                                    <li>JavaScript</li>
+                                    <li>ReactJS</li>
+                                    <li>Angular</li>
+                                    <li>Python</li>
+                                    <li>Java</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div className="right-container">

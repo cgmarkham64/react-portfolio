@@ -111,6 +111,12 @@ nav {
     }
   }
 
+  a.photography-link {
+    &::after {
+      content: 'PHOTOS';
+    }
+  }
+
   a.active {
     svg {
       color: #f19953;

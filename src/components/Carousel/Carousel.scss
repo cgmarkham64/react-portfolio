@@ -1,0 +1,61 @@
+.carousel {
+    position: relative;
+    height: 625px;
+    
+    .carousel-images {
+        position: absolute;
+        left: 29%;
+        top: 10px;
+        transform: translateX(-50%);
+        border-radius: 20px;
+        border: #fff solid 2px;
+        height: 100%;
+        max-height: 570px;
+        max-width: 1000px;
+        margin: 0 1rem;
+        overflow: hidden;
+    }
+
+    .slide-direction {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .left,
+    .right {
+        background-color: #f19a539d;
+        color: #fff;
+        padding: 10px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto 10px;
+        height: 25px;
+        width: 25px;
+    }
+    .left {
+        left: 0;
+    }
+    .right {
+        right: 0;
+    }
+    .carousel-indicator {
+        position: absolute;
+        top: 600px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .dot {
+        background-color: #333;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+    .active {
+        background-color: #f19953;
+    }
+}
