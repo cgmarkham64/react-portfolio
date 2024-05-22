@@ -9,10 +9,11 @@ class Photography extends Component {
 
         // Set initial state
         this.state = {
-            instaItems: []
+            instaItems: [],
+            mediaUrls: [],
         }
 
-        this.getUserMedia = this.getUserMedia.bind(this)
+        this.getUserMedia = this.getUserMedia.bind(this);
     }
 
     componentDidMount() {
@@ -20,24 +21,24 @@ class Photography extends Component {
     }
 
     getUserMedia = async () => {
-        const accessToken = process.env.REACT_APP_INSTAGRAM_KEY
-        const fields = `id,caption,media_url,timestamp,media_type,permalink`
-        const userId = '7436680339745871'
-        const url = `https://graph.instagram.com/v19.0/${userId}/media?fields=${fields}&access_token=${accessToken}`
-        const data = await fetch(url)
-        const feed = await data.json()
+        const accessToken = process.env.REACT_APP_INSTAGRAM_KEY;
+        const fields = `id,caption,media_url,timestamp,media_type,permalink`;
+        const userId = '7436680339745871';
+        const url = `https://graph.instagram.com/v19.0/${userId}/media?fields=${fields}&access_token=${accessToken}`;
+        const data = await fetch(url);
+        const feed = await data.json();
 
-        let elements = []
+        let urls = []
 
         feed.data.forEach((item, index) => {
             if (item.media_type !== 'VIDEO' && index < 10) {
-                elements.push(item);
+                urls.push(item.media_url);
             }
-        })
+        });
 
         this.setState({
-            instaItems: elements,
-        })
+            mediaUrls: urls
+        });
     }
 
     render() {
@@ -46,7 +47,7 @@ class Photography extends Component {
                 <div className="home-page">
                     <div className="content-zone zone-one">
                         <h1>Latest Instagram Photos</h1>
-                        <Carousel items={this.state.instaItems}/>
+                        <Carousel mediaUrls={this.state.mediaUrls}/>
                     </div>
                 </div>
             </div>

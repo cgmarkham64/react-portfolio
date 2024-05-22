@@ -93,8 +93,8 @@ class Home extends Component {
                             <h3>—Cody</h3>
                         </div>
                         <div className="content-zone zone-two">
-                            <div class="scroller">
-                                <ul class="tag-list scroller__inner" data-speed="slow">
+                            <div className="scroller">
+                                <ul className="tag-list scroller__inner" data-speed="slow">
                                     <li>HTML</li>
                                     <li>JavaScript</li>
                                     <li>ReactJS</li>
