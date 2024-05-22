@@ -70,18 +70,20 @@ const Carousel = ({ mediaUrls }) => {
     return (
         <div className="carousel">
             <AnimatePresence className="carousel-images-wrapper">
-                <motion.img
-                    className="carousel-images"
-                    key={currentIndex}
-                    src={mediaUrls[currentIndex]}
-                    variants={slideVariants}
-                    initial={
-                        direction === 'right' ? 'hiddenRight' : 'hiddenLeft'
-                    }
-                    animate="visible"
-                    exit="exit"
-                    alt=""
-                />
+                <a href={mediaUrls[currentIndex]} target="_blank" rel="noreferrer">
+                    <motion.img
+                        className="carousel-images"
+                        key={currentIndex}
+                        src={mediaUrls[currentIndex]}
+                        variants={slideVariants}
+                        initial={
+                            direction === 'right' ? 'hiddenRight' : 'hiddenLeft'
+                        }
+                        animate="visible"
+                        exit="exit"
+                        alt=""
+                    />
+                </a>
             </AnimatePresence>
 
             {/*  If desired, bring back carousel side controls... maybe not necessary and it's cleaner without  */}

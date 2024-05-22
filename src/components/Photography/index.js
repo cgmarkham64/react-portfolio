@@ -11,13 +11,16 @@ class Photography extends Component {
         this.state = {
             instaItems: [],
             mediaUrls: [],
+            isAutoScrolling: false,
         }
 
         this.getUserMedia = this.getUserMedia.bind(this);
+        this.startAutoScroll = this.startAutoScroll.bind(this);
     }
 
     componentDidMount() {
         this.getUserMedia();
+        this.startAutoScroll();
     }
 
     getUserMedia = async () => {
@@ -39,6 +42,18 @@ class Photography extends Component {
         this.setState({
             mediaUrls: urls
         });
+    }
+
+    startAutoScroll = () => {
+        
+        setInterval(() => {
+            // if(this.state.isAutoScrolling) {
+                
+            // } else {
+            //     // set to true
+            // }
+            console.log('todo - click dot after active dot')
+        }, 5000);
     }
 
     render() {
