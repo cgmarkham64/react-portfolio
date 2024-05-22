@@ -45,13 +45,22 @@ class Photography extends Component {
     }
 
     startAutoScroll = () => {
+        const clickEvent = new MouseEvent("click", {
+            "view": window,
+            "bubbles": true,
+            "cancelable": false
+        });
         
         setInterval(() => {
-            // if(this.state.isAutoScrolling) {
-                
-            // } else {
-            //     // set to true
-            // }
+            const dots = document.getElementsByClassName('dot');
+            console.log('dots is ', dots);
+            for(let i=0; i < dots.length; i++) {
+                if(dots[i].className.indexOf('active') > 0) {
+                    console.log(`index found! ${i}`);
+                    let targetIndex = (i + 1 <= dots.length - 1) ? i + 1 : 0;
+                    dots[targetIndex].dispatchEvent(clickEvent);
+                }
+            }
             console.log('todo - click dot after active dot')
         }, 5000);
     }
