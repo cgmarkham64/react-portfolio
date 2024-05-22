@@ -1,4 +1,3 @@
-import InstaItem from '../InstaItem'
 import './Photography.scss'
 
 import React, { Component } from 'react'
@@ -10,14 +9,14 @@ class Photography extends Component {
 
         // Set initial state
         this.state = {
-            instaImages: []
+            instaItems: []
         }
 
         this.getUserMedia = this.getUserMedia.bind(this)
     }
 
     componentDidMount() {
-        this.getUserMedia()
+        this.getUserMedia();
     }
 
     getUserMedia = async () => {
@@ -28,19 +27,16 @@ class Photography extends Component {
         const data = await fetch(url)
         const feed = await data.json()
 
-        console.debug(feed)
-
         let elements = []
 
         feed.data.forEach((item, index) => {
-            console.log('item is ', item.media_url);
             if (item.media_type !== 'VIDEO' && index < 10) {
-                elements.push(item.media_url);
+                elements.push(item);
             }
         })
 
         this.setState({
-            instaImages: elements,
+            instaItems: elements,
         })
     }
 
@@ -50,7 +46,7 @@ class Photography extends Component {
                 <div className="home-page">
                     <div className="content-zone zone-one">
                         <h1>Latest Instagram Photos</h1>
-                        <Carousel images={this.state.instaImages}/>
+                        <Carousel items={this.state.instaItems}/>
                     </div>
                 </div>
             </div>
