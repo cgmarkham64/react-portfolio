@@ -2,6 +2,8 @@ import './Photography.scss'
 
 import React, { Component } from 'react'
 import Carousel from '../Carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 class Photography extends Component {
     constructor(props) {
@@ -11,7 +13,9 @@ class Photography extends Component {
         this.state = {
             instaItems: [],
             mediaUrls: [],
-            isAutoScrolling: false,
+            isScrolling: true,
+            toggleIcon: faPause,
+            dotClickInterval: setInterval(this.clickNextDot, 7000),
         }
 
         this.getUserMedia = this.getUserMedia.bind(this);
@@ -20,7 +24,6 @@ class Photography extends Component {
 
     componentDidMount() {
         this.getUserMedia();
-        this.startAutoScroll();
     }
 
     getUserMedia = async () => {
@@ -50,19 +53,52 @@ class Photography extends Component {
             "bubbles": true,
             "cancelable": false
         });
+        const dots = document.getElementsByClassName('dot');
         
-        setInterval(() => {
-            const dots = document.getElementsByClassName('dot');
-            console.log('dots is ', dots);
+        if(this.state.isScrolling) {
             for(let i=0; i < dots.length; i++) {
                 if(dots[i].className.indexOf('active') > 0) {
-                    console.log(`index found! ${i}`);
                     let targetIndex = (i + 1 <= dots.length - 1) ? i + 1 : 0;
                     dots[targetIndex].dispatchEvent(clickEvent);
                 }
             }
-            console.log('todo - click dot after active dot')
-        }, 5000);
+        }
+    }
+
+    toggleAutoScroll = () => {
+        if(this.state.isScrolling === false) {
+            console.log('start scrolling');
+            this.setState({
+                isScrolling: true,
+                toggleIcon: faPause,
+                dotClickInterval: setInterval(this.clickNextDot, 7000)
+            });
+        } else {
+            console.log('stop scrolling');
+            this.setState({
+                isScrolling: false,
+                toggleIcon: faPlay,
+                dotClickInterval: clearInterval(this.state.dotClickInterval)
+            });
+        }
+    }
+
+    clickNextDot = () => {
+        const clickEvent = new MouseEvent("click", {
+            "view": window,
+            "bubbles": true,
+            "cancelable": false
+        });
+        const dots = document.getElementsByClassName('dot');
+
+        if(this.state.isScrolling) {
+            for(let i=0; i < dots.length; i++) {
+                if(dots[i].className.indexOf('active') > 0) {
+                    let targetIndex = (i + 1 <= dots.length - 1) ? i + 1 : 0;
+                    dots[targetIndex].dispatchEvent(clickEvent);
+                }
+            }
+        }
     }
 
     render() {
@@ -71,6 +107,7 @@ class Photography extends Component {
                 <div className="home-page">
                     <div className="content-zone zone-one">
                         <h1>Latest Instagram Photos</h1>
+                        <FontAwesomeIcon className="carousel-control" icon={this.state.toggleIcon} onClick={this.toggleAutoScroll}/>
                         <Carousel mediaUrls={this.state.mediaUrls}/>
                     </div>
                 </div>
