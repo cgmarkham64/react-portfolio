@@ -49,6 +49,7 @@ class Photography extends Component {
             <div className="container">
                 <div className="home-page">
                     <div className="content-zone zone-one">
+                        <h1>Latest Instagram Photos</h1>
                         <Carousel images={this.state.instaImages}/>
                     </div>
                 </div>

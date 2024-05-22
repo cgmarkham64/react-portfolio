@@ -1,29 +1,29 @@
 import { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Carousel.scss'
 
 const Carousel = ({ images }) => {
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [direction, setDirection] = useState('left')
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState('left');
 
-    const handleNext = () => {
-        setDirection('right');
-        setCurrentIndex((prevIndex) =>
-            prevIndex + 1 === images.length ? 0 : prevIndex + 1
-        )
-    }
+    // const handleNext = () => {
+    //     setDirection('right')
+    //     setCurrentIndex((prevIndex) =>
+    //         prevIndex + 1 === images.length ? 0 : prevIndex + 1
+    //     )
+    // }
 
-    const handlePrevious = () => {
-        setDirection('left');
-        setCurrentIndex((prevIndex) =>
-            prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
-        )
-    }
+    // const handlePrevious = () => {
+    //     setDirection('left')
+    //     setCurrentIndex((prevIndex) =>
+    //         prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
+    //     )
+    // }
 
     const handleDotClick = (index) => {
-        setDirection(index > currentIndex ? 'right' : 'left');
+        setDirection(index > currentIndex ? 'right' : 'left')
         setCurrentIndex(index)
     }
 
@@ -52,6 +52,21 @@ const Carousel = ({ images }) => {
         },
     }
 
+    const dotsVariants = {
+        initial: {
+            y: 0,
+        },
+        animate: {
+            y: -5,
+            scale: 1.15,
+            transition: { type: 'spring', stiffness: 1000, damping: '10' },
+        },
+        hover: {
+            scale: 1.1,
+            transition: { duration: 0.2 },
+        },
+    }
+
     return (
         <div className="carousel">
             <AnimatePresence className="carousel-images-wrapper">
@@ -68,7 +83,9 @@ const Carousel = ({ images }) => {
                     alt=""
                 />
             </AnimatePresence>
-            <div className="slide-direction">
+
+            {/*  If desired, bring back carousel side controls... maybe not necessary and it's cleaner without  */}
+            {/* <div className="slide-direction">
                 <FontAwesomeIcon
                     className="left"
                     icon={faAngleLeft}
@@ -79,16 +96,21 @@ const Carousel = ({ images }) => {
                     icon={faAngleRight}
                     onClick={handleNext}
                 />
-            </div>
+            </div> */}
+
             <div className="carousel-indicator">
                 {images.map((_, index) => (
-                    <div
+                    <motion.div
                         key={index}
                         className={`dot ${
                             currentIndex === index ? 'active' : ''
                         }`}
                         onClick={() => handleDotClick(index)}
-                    ></div>
+                        initial="initial"
+                        animate={currentIndex === index ? 'animate' : ''}
+                        whileHover="hover"
+                        variants={dotsVariants}
+                    ></motion.div>
                 ))}
             </div>
         </div>

@@ -1,12 +1,16 @@
 .carousel {
+    display: flex;
+    justify-content: space-between;
+
     position: relative;
     height: 625px;
 
     .carousel-images-wrapper {
         position: absolute;
+        order: 2;
         left: 50%;
     }
-    
+
     .carousel-images {
         position: absolute;
         left: 50%;
@@ -20,30 +24,37 @@
         margin: 0 1rem;
     }
 
-    .slide-direction {
-        display: flex;
-        justify-content: space-between;
-    }
+    // .slide-direction {
+    //     display: flex;
 
-    .left,
-    .right {
-        background-color: #f19a539d;
-        color: #fff;
-        padding: 10px;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin: auto 10px;
-        height: 25px;
-        width: 25px;
-    }
-    .left {
-        left: 0;
-    }
-    .right {
-        right: 0;
-    }
+    //     .left,
+    //     .right {
+    //         background-color: #f19a539d;
+    //         color: #fff;
+    //         padding: 10px;
+    //         border-radius: 50%;
+    //         position: absolute;
+    //         top: 0;
+    //         bottom: 0;
+    //         margin: auto 10px;
+    //         height: 25px;
+    //         width: 25px;
+    //     }
+    //     .left:hover,
+    //     .right:hover {
+    //         color: red;
+    //     }
+
+    //     .left {
+    //         left: 0;
+    //         order: 1;
+    //     }
+    //     .right {
+    //         right: 0;
+    //         order: 3;
+    //     }
+    // }
+
     .carousel-indicator {
         position: absolute;
         top: 600px;
