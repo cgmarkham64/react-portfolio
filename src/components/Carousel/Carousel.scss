@@ -24,6 +24,44 @@
         margin: 0 1rem;
     }
 
+    .hover-box {
+        position: absolute;
+        left: calc(50% + 15px);
+        top: 35px;
+        transform: translateX(-50%);
+        width: 20%;
+        max-height: 570px;
+        max-width: 1000px;
+
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 8px;
+        border-radius: 20px;
+        border: #fff solid 2px;
+        color: #f19953;
+        background-color: #333;
+        opacity: 80%;
+
+        .hover-text {
+            text-align: center;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            justify-content: center;
+
+            .icon {
+                font-size: 25px;
+                color: #f19953;
+                margin: 1rem;
+            }
+
+            .icon:hover {
+                color: #fff;
+            }
+        }
+    }
+
     .carousel-indicator {
         position: absolute;
         top: 600px;

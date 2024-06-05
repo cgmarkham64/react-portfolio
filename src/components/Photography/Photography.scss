@@ -4,16 +4,15 @@
     .zone-one {
         margin: 0 1rem;
         width: 99%;
+        color: #f19953;
 
         h1 {
             font-family: 'Coolvetica Compressed';
             text-align: center;
         }
 
-        .toggle-icon {
-            font-size: 18px;
-            color: #f19953;
-            text-align: center;
+        .section-header {
+            margin: 8px auto;
         }
     }
 }

@@ -1,29 +1,37 @@
-import './Photography.scss'
+import './Photography.scss';
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Carousel from '../Carousel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 class Photography extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         // Set initial state
         this.state = {
             instaItems: [],
             mediaUrls: [],
+            mediaCaptions: [],
+            mediaPermalinks: [],
             isScrolling: true,
             toggleIcon: faPause,
-            dotClickInterval: setInterval(this.clickNextDot, 7000),
-        }
+        };
+
+        this.dotClickInterval = setInterval(this.clickNextDot, 7000);
 
         this.getUserMedia = this.getUserMedia.bind(this);
-        this.startAutoScroll = this.startAutoScroll.bind(this);
+        this.pauseAutoScroll = this.pauseAutoScroll.bind(this);
+        this.playAutoScroll = this.playAutoScroll.bind(this);
     }
 
     componentDidMount() {
         this.getUserMedia();
+    }
+
+    componentWillUnmount() {
+        // have to clear the interval when unmounting or page changes will create multiple 'threads' of the interval
+        clearInterval(this.dotClickInterval);
     }
 
     getUserMedia = async () => {
@@ -34,86 +42,81 @@ class Photography extends Component {
         const data = await fetch(url);
         const feed = await data.json();
 
-        let urls = []
+        let urls = [];
+        let captions = [];
+        let permalinks = [];
 
         feed.data.forEach((item, index) => {
             if (item.media_type !== 'VIDEO' && index < 10) {
                 urls.push(item.media_url);
+                captions.push(item.caption.slice(0, item.caption.indexOf('#')));
+                permalinks.push(item.permalink);
             }
         });
 
         this.setState({
-            mediaUrls: urls
+            mediaUrls: urls,
+            mediaCaptions: captions,
+            mediaPermalinks: permalinks,
         });
-    }
+    };
 
-    startAutoScroll = () => {
-        const clickEvent = new MouseEvent("click", {
-            "view": window,
-            "bubbles": true,
-            "cancelable": false
+    pauseAutoScroll = () => {
+        clearInterval(this.dotClickInterval);
+        this.setState({
+            isScrolling: false,
+            toggleIcon: faPlay,
+            dotClickInterval: clearInterval(this.state.dotClickInterval),
         });
-        const dots = document.getElementsByClassName('dot');
-        
-        if(this.state.isScrolling) {
-            for(let i=0; i < dots.length; i++) {
-                if(dots[i].className.indexOf('active') > 0) {
-                    let targetIndex = (i + 1 <= dots.length - 1) ? i + 1 : 0;
-                    dots[targetIndex].dispatchEvent(clickEvent);
-                }
-            }
-        }
-    }
+    };
 
-    toggleAutoScroll = () => {
-        if(this.state.isScrolling === false) {
-            console.log('start scrolling');
-            this.setState({
-                isScrolling: true,
-                toggleIcon: faPause,
-                dotClickInterval: setInterval(this.clickNextDot, 7000)
-            });
-        } else {
-            console.log('stop scrolling');
-            this.setState({
-                isScrolling: false,
-                toggleIcon: faPlay,
-                dotClickInterval: clearInterval(this.state.dotClickInterval)
-            });
-        }
-    }
+    playAutoScroll = () => {
+        this.setState({
+            isScrolling: true,
+            toggleIcon: faPause,
+            dotClickInterval: setInterval(this.clickNextDot, 5000),
+        });
+    };
 
     clickNextDot = () => {
-        const clickEvent = new MouseEvent("click", {
-            "view": window,
-            "bubbles": true,
-            "cancelable": false
+        console.log('clicking dot...');
+        const clickEvent = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: false,
         });
         const dots = document.getElementsByClassName('dot');
 
-        if(this.state.isScrolling) {
-            for(let i=0; i < dots.length; i++) {
-                if(dots[i].className.indexOf('active') > 0) {
-                    let targetIndex = (i + 1 <= dots.length - 1) ? i + 1 : 0;
+        if (this.state.isScrolling) {
+            for (let i = 0; i < dots.length; i++) {
+                if (dots[i].className.indexOf('active') > 0) {
+                    let targetIndex = i + 1 <= dots.length - 1 ? i + 1 : 0;
                     dots[targetIndex].dispatchEvent(clickEvent);
                 }
             }
         }
-    }
+    };
 
     render() {
         return (
             <div className="container">
                 <div className="home-page">
                     <div className="content-zone zone-one">
-                        <h1>Latest Instagram Photos</h1>
-                        <FontAwesomeIcon className="carousel-control" icon={this.state.toggleIcon} onClick={this.toggleAutoScroll}/>
-                        <Carousel mediaUrls={this.state.mediaUrls}/>
+                        <h1 className="section-header">
+                            Latest from the 'gram
+                        </h1>
+                        <Carousel
+                            mediaUrls={this.state.mediaUrls}
+                            mediaCaptions={this.state.mediaCaptions}
+                            mediaPermalinks={this.state.mediaPermalinks}
+                            pauseAutoScroll={this.pauseAutoScroll}
+                            playAutoScroll={this.playAutoScroll}
+                        />
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default Photography
+export default Photography;

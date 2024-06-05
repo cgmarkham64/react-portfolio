@@ -31,22 +31,20 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.getUserMedia()
+        this.getUserMedia();
     }
 
     getUserMedia = async () => {
-        const accessToken = process.env.REACT_APP_INSTAGRAM_KEY
-        const fields = `id,caption,media_url,timestamp,media_type,permalink`
-        const userId = '7436680339745871'
-        const url = `https://graph.instagram.com/v19.0/${userId}/media?fields=${fields}&access_token=${accessToken}`
-        const data = await fetch(url)
-        const feed = await data.json()
-
-        console.debug(feed)
+        const accessToken = process.env.REACT_APP_INSTAGRAM_KEY;
+        const fields = `id,caption,media_url,timestamp,media_type,permalink`;
+        const userId = '7436680339745871';
+        const url = `https://graph.instagram.com/v19.0/${userId}/media?fields=${fields}&access_token=${accessToken}`;
+        const data = await fetch(url);
+        const feed = await data.json();
 
         let elements = []
 
-        feed.data.forEach((item, index) => {
+        feed.data.forEach((item) => {
             if (item.media_type !== 'VIDEO') {
                 elements.push(
                     <div className="scroll-element">
@@ -74,9 +72,9 @@ class Home extends Component {
             // add aria-hidden to it
             // add it into the `.scroller-inner`
             scrollerContent.forEach((item) => {
-            const duplicatedItem = item.cloneNode(true);
-            duplicatedItem.setAttribute("aria-hidden", true);
-            scrollerInner.appendChild(duplicatedItem);
+                const duplicatedItem = item.cloneNode(true);
+                duplicatedItem.setAttribute("aria-hidden", true);
+                scrollerInner.appendChild(duplicatedItem);
             });
         });
     }
@@ -103,11 +101,6 @@ class Home extends Component {
                                     <li>Java</li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                    <div className="right-container">
-                        <div className="content-zone zone-one">
-                            {this.state.instagramElements}
                         </div>
                     </div>
                 </div>

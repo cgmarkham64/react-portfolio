@@ -1,15 +1,35 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import './Carousel.scss';
 
-const Carousel = ({ mediaUrls }) => {
+const Carousel = ({
+    mediaUrls,
+    mediaCaptions,
+    mediaPermalinks,
+    pauseAutoScroll,
+    playAutoScroll,
+}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState('left');
+    const [hover, setHover] = useState(false);
+
+    const onHover = () => {
+        setHover(true);
+        pauseAutoScroll();
+    };
+
+    const onLeave = () => {
+        setHover(false);
+        playAutoScroll();
+    };
 
     const handleDotClick = (index) => {
         setDirection(index > currentIndex ? 'right' : 'left');
         setCurrentIndex(index);
-    }
+    };
 
     const slideVariants = {
         hiddenRight: {
@@ -34,7 +54,7 @@ const Carousel = ({ mediaUrls }) => {
                 duration: 1.25,
             },
         },
-    }
+    };
 
     const dotsVariants = {
         initial: {
@@ -49,12 +69,12 @@ const Carousel = ({ mediaUrls }) => {
             scale: 1.1,
             transition: { duration: 0.2 },
         },
-    }
+    };
 
     return (
         <div className="carousel">
             <AnimatePresence className="carousel-images-wrapper">
-                <a href={mediaUrls[currentIndex]} target="_blank" rel="noreferrer">
+                <div onMouseEnter={onHover} onMouseLeave={onLeave}>
                     <motion.img
                         className="carousel-images"
                         key={currentIndex}
@@ -67,7 +87,34 @@ const Carousel = ({ mediaUrls }) => {
                         exit="exit"
                         alt=""
                     />
-                </a>
+                    {hover ? (
+                        <div className="hover-box">
+                            <h3 className="hover-text">
+                                {mediaCaptions[currentIndex]}
+                            </h3>
+                            <div className="icon-wrapper">
+                                <a
+                                    className="icon"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href={mediaPermalinks[currentIndex]}
+                                >
+                                    <FontAwesomeIcon icon={faInstagram} />
+                                </a>
+                                <a
+                                    className="icon"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href={mediaUrls[currentIndex]}
+                                >
+                                    <FontAwesomeIcon icon={faImage} />
+                                </a>
+                            </div>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </div>
             </AnimatePresence>
 
             <div className="carousel-indicator">
@@ -86,7 +133,7 @@ const Carousel = ({ mediaUrls }) => {
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Carousel
+export default Carousel;
